@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--绑定接口-->
+<mapper namespace="com.dakuzai.mapper.UserMapper">
+    <!--绑定接口中的方法-->
+    <select id="getUsers" resultType="User">
+        select * from user
+    </select>
+
+    <select id="getUserByNameAndPassword" resultType="User">
+        select u.id from user u where u.username = #{username} and u.password = #{password}
+    </select>
+
+    <insert id="register" parameterType="User">
+        insert into user (username,password)
+        values (#{username},#{password})
+    </insert>
+</mapper>

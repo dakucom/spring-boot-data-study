@@ -1,9 +1,11 @@
 package com.dakuzai.config;
 
 import com.dakuzai.handler.MyLocaleResolver;
+import com.dakuzai.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,8 +28,20 @@ public class MyMvcConfig implements WebMvcConfigurer {
         registry.addViewController("/index").setViewName("login");
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/index.html").setViewName("login");
+        registry.addViewController("/main.html").setViewName("dashboard");
     }
 
+    /**
+     * 登录拦截器
+     * @param registry
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 拦截器需要放行第一次登录的请求，否则就用户为null 了
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/index.html","/","index","/asserts/**","/user/login");
+    }
     /**
      * 注册国际化到IOC中
      * @return

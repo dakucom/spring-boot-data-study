@@ -33,6 +33,12 @@
     insert into employee (last_name, email, gender, department, birth)
     values (#{lastName},#{ email}, #{gender},#{ department},#{birth})
     </insert>
+    <!-- 插入请求 -->
+    <update id="update" parameterType="Employee">
+        update employee
+        set last_name = #{lastName},email=#{email},gender=#{gender},department=#{department},birth=#{birth}
+        where id = #{id} ;
+    </update>
     <select id="getEmployeeById" resultType="Employee">
         select * from employee where id = #{id}
     </select>

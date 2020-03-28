@@ -29,6 +29,12 @@ spring:
     # 配置国际化的login路径
   messages:
     basename: i18n.login
+    # 清缓存
+  thymeleaf:
+    cache: false
+  mvc:
+    date-format: yyyy-MM-dd
+
 # 配置mybatis的配置
 mybatis:
   configuration:
